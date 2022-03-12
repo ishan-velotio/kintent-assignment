@@ -43,4 +43,14 @@ export default class BookRepository {
 
     return book;
   }
+
+  public async updateBookAuthor(book: IBookInstance, authors: IAuthorInstance[]) {
+    logger.info('Setting Authors...');
+
+    try {
+      await book.setAuthors(authors);
+    } catch (error) {
+
+    }
+  }
 }

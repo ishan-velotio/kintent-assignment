@@ -5,6 +5,9 @@ import * as sequelize from 'sequelize';
 declare global {
   interface IDbConnection {
     User: sequelize.Model<IUserInstance, IUserAttributes>;
+    Book: sequelize.Model<IBookInstance, IBookAttributes>;
+    Author: sequelize.Model<IAuthorInstance, IAuthorAttributes>;
+    BookAuthor: sequelize.Model<IBookAuthorInstance, IBookAuthorAttributes>;
 
     sequelize: any;
     Sequelize: any;
@@ -27,4 +30,48 @@ declare global {
   interface IUserInstance
     extends sequelize.Instance<IUserAttributes>,
       IUserAttributes {}
+
+  interface IBookAttributes {
+    id?: number;
+    name?: string;
+    publishYear?: number;
+    publisher?: string;
+    version?: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+    deletedAt?: Date;
+  }
+
+  interface IBookInstance
+    extends sequelize.Instance<IBookAttributes>,
+      IBookAttributes {}
+
+  interface IAuthorAttributes {
+    id?: number;
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    phone?: string;
+    dob?: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
+    deletedAt?: Date;
+  }
+
+  interface IAuthorInstance
+    extends sequelize.Instance<IAuthorAttributes>,
+      IAuthorAttributes {}
+
+  interface IBookAuthorAttributes {
+    id?: number;
+    bookId?: number;
+    authorId?: number;
+    createdAt?: Date;
+    updatedAt?: Date;
+    deletedAt?: Date;
+  }
+
+  interface IBookAuthorInstance
+    extends sequelize.Instance<IBookAuthorAttributes>,
+      IBookAuthorAttributes {}
 }

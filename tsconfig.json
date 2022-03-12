@@ -1,0 +1,31 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "*": ["types/*"]
+    },
+    "skipLibCheck": true,
+    "typeRoots": ["./types"],
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "noLib": false,
+    "noUnusedLocals": true,
+    "outDir": "build",
+    "removeComments": true,
+    "sourceMap": false,
+    "target": "es6",
+    "types": ["node"],
+    "lib": [
+      "es7"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "config"
+  ]
+}

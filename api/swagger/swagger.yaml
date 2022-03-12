@@ -1,0 +1,47 @@
+swagger: '2.0'
+info:
+  description: Starter API server
+  version: '0.1.0'
+  contact:
+    email: ishan.khanduja@velotio.com
+  title: Node Starter Application
+# during dev, should point to your local machine
+host: localhost:3000
+# basePath prefixes all resource paths
+basePath: /
+#
+schemes:
+  # tip: remove http to make production-grade
+  - http
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+  - multipart/form-data
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+
+securityDefinitions:
+  JWT:
+    name: Authorization
+    type: apiKey
+    in: header
+
+paths:
+  /users:
+    x-swagger-router-controller: user
+    post:
+      description: Create User
+      operationId: create
+      security:
+        - JWT: []
+      responses:
+        200:
+          description: successfully creates user.
+          schema:
+            type: object
+        400:
+          description: Bad Json Formatting
+          schema:
+            type: object

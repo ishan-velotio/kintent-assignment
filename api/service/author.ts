@@ -19,6 +19,26 @@ export default class AuthorService {
     return this.toResponseObj(author);
   }
 
+  public async getAll() {
+    logger.info('Service called to get all authors');
+
+    const authors = await this.authorRepo.getAll();
+    logger.info('Authors Fetched');
+
+    return authors.map( author => this.toResponseObj(author));
+  }
+
+  public async get( authorId: number ) {
+    logger.info('Service called to get an author');
+
+    const author = await this.authorRepo.getById(authorId);
+    const authorBooks = await author.getBooks();
+
+    logger.info('Author Fetched');
+
+    return this.toResponseObj(author, authorBooks);
+  }
+
 
   private toAttributeObj(author: IAuthorRequest): IAuthorAttributes {
     return {
@@ -30,7 +50,7 @@ export default class AuthorService {
     }
   }
 
-  private toResponseObj(author: IAuthorInstance): IAuthor {
+  private toResponseObj(author: IAuthorInstance, books: IBookInstance[] = []): IAuthor {
     return {
       id: author.id,
       firstName: author.firstName,
@@ -38,6 +58,7 @@ export default class AuthorService {
       dob: author.dob,
       phone: author.phone,
       email: author.email,
+      books: books.map(book => book.name),
     }
   }
 }

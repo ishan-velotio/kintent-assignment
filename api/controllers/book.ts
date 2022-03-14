@@ -9,11 +9,12 @@ export const create = async (request, response) => {
 
   const requestBody: IBookRequest =
     request.swagger.params.body.value;
+  const isbn: string = request.swagger.params.isbn.value || null;
 
   logger.debug(`Request body - ${JSON.stringify(requestBody)}`);
 
   try {
-    const book = await bookService.create(requestBody);
+    const book = await bookService.create(requestBody, isbn);
     logger.info('Sending response to the client.');
 
     return response.status(201).json(book);

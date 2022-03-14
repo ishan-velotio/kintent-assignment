@@ -56,9 +56,14 @@ paths:
         - in: body
           name: body
           description: Inserts a book record
-          required: true
+          required: false
           schema:
             $ref: '#/definitions/BookRequest'
+        - in: query
+          name: isbn
+          description: Inserts a book record by ISBN
+          required: false
+          type: string
       responses:
         201:
           description: returns a book record.

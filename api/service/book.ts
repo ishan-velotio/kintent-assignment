@@ -3,6 +3,8 @@ import * as logger from 'winston';
 import BookRepository from '../dataAccess/book';
 import AuthorRepository from '../dataAccess/author';
 import db from '../models';
+import {getBookByISBN} from '../utils/book'
+import { InvalidRequestError } from '../errors';
 
 export default class BookService {
   private bookRepo: BookRepository;
@@ -12,10 +14,40 @@ export default class BookService {
     this.authorRepo = new AuthorRepository();
   }
 
-  public async create( bookReq: IBookRequest ): Promise<IBook> {
+  public async create( bookReq: IBookRequest, isbn: string = null ): Promise<IBook> {
     logger.info('Service called to create the book');
 
-    const bookAttrs = this.toAttributeObj(bookReq);
+    if (!isbn && !bookReq) {
+      const errMsg = 'Invalid Request. Body or ISBN is mandatory';
+      logger.error(errMsg);
+
+      throw new InvalidRequestError(errMsg)
+    }
+
+    let bookAttrs: IBookAttributes = null;
+    if (isbn) {
+      const data = await getBookByISBN(isbn);
+
+      // We can use available npm modules to support different providers
+      if (data && data.hasOwnProperty(`ISBN:${isbn}`)) {
+        const bookDetails = data[`ISBN:${isbn}`]['details'];
+        bookAttrs = {
+          name: bookDetails.title,
+          version: bookDetails.revision,
+          publishYear: Number(bookDetails.publish_date),
+          publisher: bookDetails.publishers[0],
+          description: bookDetails.title,
+        }
+      } else {
+        const errMsg = 'Invalid Request. ISBN is invalid';
+        logger.error(errMsg);
+
+        throw new InvalidRequestError(errMsg)
+      }
+    } else {
+      bookAttrs = this.toAttributeObj(bookReq);
+    }
+
     const book = await this.bookRepo.create(bookAttrs);
 
     logger.info('Book Created');

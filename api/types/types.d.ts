@@ -42,9 +42,3 @@ declare interface IUserRequest {
     version: string;
     authors?: string[]
   }
-
-  declare interface IBookSearchParam {
-    searchString: string,
-    limit: number,
-    offset: number,
-  }

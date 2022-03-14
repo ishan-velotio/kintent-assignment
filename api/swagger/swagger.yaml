@@ -60,109 +60,10 @@ paths:
           schema:
             $ref: '#/definitions/BookRequest'
       responses:
-        201:
-          description: returns a book record.
-          schema:
-            $ref: '#/definitions/BookResponse'
-        400:
-          description: Bad Json Formatting
-          schema:
-            type: object
-    get:
-      description: Get all Books
-      operationId: getAll
-      # security:
-      #   - JWT: []
-      parameters:
-        - in: query
-          name: q
-          description: Search Param
-          required: false
-          type: string
-        - in: query
-          name: limit
-          description: Limit
-          required: false
-          type: integer
-        - in: query
-          name: offset
-          description: Offset
-          required: false
-          type: integer
-      responses:
-        200:
-          description: return book records.
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/BookResponse'
-        400:
-          description: Bad Json Formatting
-          schema:
-            type: object
-
-  /books/{id}:
-    x-swagger-router-controller: book
-    get:
-      description: Get Book Record
-      operationId: get
-      # security:
-      #   - JWT: []
-      parameters:
-        - in: path
-          name: id
-          description: Book Id
-          required: true
-          type: integer
-      responses:
         200:
           description: returns a book record.
           schema:
             $ref: '#/definitions/BookResponse'
-        400:
-          description: Bad Json Formatting
-          schema:
-            type: object
-    put:
-      description: Edit Book Record
-      operationId: edit
-      # security:
-      #   - JWT: []
-      parameters:
-        - in: path
-          name: id
-          description: Book Id
-          required: true
-          type: integer
-        - in: body
-          name: body
-          description: Updates a book record
-          required: true
-          schema:
-            $ref: '#/definitions/BookRequest'
-      responses:
-        200:
-          description: returns book record.
-          schema:
-            $ref: '#/definitions/BookResponse'
-        400:
-          description: Bad Json Formatting
-          schema:
-            type: object
-    delete:
-      description: Delete Book Record
-      operationId: deleteBook
-      # security:
-      #   - JWT: []
-      parameters:
-        - in: path
-          name: id
-          description: Book Id
-          required: true
-          type: integer
-      responses:
-        200:
-          description: returns a book record.
         400:
           description: Bad Json Formatting
           schema:
@@ -187,89 +88,6 @@ paths:
           description: returns a book record.
           schema:
             $ref: '#/definitions/AuthorResponse'
-        400:
-          description: Bad Json Formatting
-          schema:
-            type: object
-    get:
-      description: Return all authors
-      operationId: getAll
-      # security:
-      #   - JWT: []
-      responses:
-        200:
-          description: return all authors.
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/AuthorResponse'
-        400:
-          description: Bad Json Formatting
-          schema:
-            type: object
-
-  /authors/{id}:
-    x-swagger-router-controller: author
-    get:
-      description: Get Author Record
-      operationId: get
-      # security:
-      #   - JWT: []
-      parameters:
-        - in: path
-          name: id
-          description: Author Id
-          required: true
-          type: integer
-      responses:
-        200:
-          description: returns author record.
-          schema:
-            $ref: '#/definitions/AuthorResponse'
-        400:
-          description: Bad Json Formatting
-          schema:
-            type: object
-    put:
-      description: Edit Author Record
-      operationId: edit
-      # security:
-      #   - JWT: []
-      parameters:
-        - in: path
-          name: id
-          description: Author Id
-          required: true
-          type: integer
-        - in: body
-          name: body
-          description: Updates author record
-          required: true
-          schema:
-            $ref: '#/definitions/AuthorRequest'
-      responses:
-        200:
-          description: returns Author record.
-          schema:
-            $ref: '#/definitions/AuthorResponse'
-        400:
-          description: Bad Json Formatting
-          schema:
-            type: object
-    delete:
-      description: Delete Author Record
-      operationId: deleteAuthor
-      # security:
-      #   - JWT: []
-      parameters:
-        - in: path
-          name: id
-          description: Author Id
-          required: true
-          type: integer
-      responses:
-        200:
-          description: returns a author record.
         400:
           description: Bad Json Formatting
           schema:
@@ -306,7 +124,7 @@ definitions:
     required:
       - id
       - name
-      - authors
+      - author
       - description
       - publishYear
       - publisher
@@ -316,10 +134,8 @@ definitions:
         type: integer
       name:
         type: string
-      authors:
-        type: array
-        items:
-          type: string
+      author:
+        type: string
       description:
         type: string
       publishYear:

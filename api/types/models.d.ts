@@ -34,7 +34,6 @@ declare global {
   interface IBookAttributes {
     id?: number;
     name?: string;
-    description?: string;
     publishYear?: number;
     publisher?: string;
     version?: string;

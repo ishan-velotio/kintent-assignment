@@ -22,7 +22,6 @@ declare interface IUserRequest {
   
   declare interface IAuthor extends IAuthorRequest {
     id: number;
-    books?: string[];
   }
   
   declare interface IBookRequest {

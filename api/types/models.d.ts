@@ -64,9 +64,7 @@ declare global {
 
   interface IAuthorInstance
     extends sequelize.Instance<IAuthorAttributes>,
-      IAuthorAttributes {
-        getBooks?: any;
-      }
+      IAuthorAttributes {}
 
   interface IBookAuthorAttributes {
     id?: number;

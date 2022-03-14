@@ -23,23 +23,6 @@ export default class AuthorRepository {
     return this.getById(author.id);
   }
 
-  public async getAll (): Promise<IAuthorInstance[]> {
-    logger.info('Getting Authors...');
-
-    let authors: IAuthorInstance[] = [];
-    try {
-        authors = await db.Author.findAll();
-      } catch (error) {
-        const errMsg = 'Error while getting authors';
-        logger.error(errMsg);
-        logger.error(error);
-  
-        throw new InternalServerError(errMsg);
-      }
-  
-      return authors;
-  }
-
   public async getById( authorId: number ): Promise<IAuthorInstance> {
     logger.info('Getting Author...');
 

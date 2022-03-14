@@ -45,8 +45,6 @@ const dbInit = appConfig => {
       }
     });
 
-    createManyToManyRelations(db);
-
     db.sequelize = sequelize;
     db.Sequelize = Sequelize;
 
@@ -56,25 +54,6 @@ const dbInit = appConfig => {
       'Error, Not connecteed to database. Please check the connection!'
     );
   }
-};
-
-// Importing the dependent models for a many to many relatinoship casuses
-// cyclic dependency issues. Hence create many to many relationships after
-// the models have been added to the db object.
-const createManyToManyRelations = (_db: IDbConnection) => {
-  db.Author.belongsToMany(db.Book, {
-    as: 'books',
-    through: 'BookAuthor',
-    foreignKey: 'authorId',
-    onDelete: 'CASCADE',
-  });
-
-  db.Book.belongsToMany(db.Author, {
-    as: 'authors',
-    through: 'BookAuthor',
-    foreignKey: 'bookId',
-    onDelete: 'CASCADE',
-  });
 };
 
 const dbTestInit = modelStubs => {

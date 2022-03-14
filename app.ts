@@ -1,7 +1,7 @@
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
 import * as httpContext from 'express-http-context';
-// import * as expressJWT from 'express-jwt';
+import * as expressJWT from 'express-jwt';
 import * as helmet from 'helmet';
 import * as SwaggerExpress from 'swagger-express-mw';
 import * as uuid from 'uuid/v1';
@@ -41,11 +41,11 @@ app.use((req: any, res: any, next: any) => {
 
 app.use(bodyParser.json({ limit: '15mb' }));
 
-// app.use(
-//   expressJWT({ secret: config.jwt.jwtSecret }).unless({
-//     path: [],
-//   })
-// );
+app.use(
+  expressJWT({ secret: config.jwt.jwtSecret }).unless({
+    path: [],
+  })
+);
 
 app.use(helmet());
 

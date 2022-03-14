@@ -24,7 +24,7 @@ export default class AuthorRepository {
   }
 
   public async getById( authorId: number ): Promise<IAuthorInstance> {
-    logger.info('Getting Author...');
+    logger.info('Creating Author...');
 
     let author: IAuthorInstance = null;
     try {
@@ -42,26 +42,5 @@ export default class AuthorRepository {
     }
 
     return author;
-  }
-
-  public async getByIds( authorIds: number[] ): Promise<IAuthorInstance[]> {
-    logger.info('Getting Authors...');
-
-    let authors: IAuthorInstance[] = [];
-    try {
-      authors = await db.Author.findAll({
-        where: {
-          id: authorIds,
-        }
-      });
-    } catch (error) {
-      const errMsg = 'Error while getting the authors';
-      logger.error(errMsg);
-      logger.error(error);
-
-      throw new InternalServerError(errMsg);
-    }
-
-    return authors;
   }
 }
